@@ -15,13 +15,10 @@ const App = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        console.log("Checking authentication status...");
         const response = await fetch("http://localhost:5000/api/auth/status", {
           credentials: "include",
         });
-        console.log("Response from auth status:", response);
         const data = await response.json();
-        console.log("Authentication data:", data);
         setIsAuthenticated(data.isAuthenticated);
         setLoading(false);
       } catch (error) {
@@ -35,12 +32,10 @@ const App = () => {
 
   const handleLogout = async () => {
     try {
-      console.log("Initiating logout...");
       const response = await fetch("http://localhost:5000/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });
-      console.log("Response from logout:", response);
       if (response.ok) {
         console.log("Logout successful");
         setIsAuthenticated(false);
@@ -53,11 +48,8 @@ const App = () => {
   };
 
   if (loading) {
-    console.log("Loading...");
     return <div>Loading...</div>;
   }
-
-  console.log("Rendering main app...");
 
   return (
     <Router>

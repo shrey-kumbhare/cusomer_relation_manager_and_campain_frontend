@@ -30,7 +30,6 @@ const AudienceForm = () => {
   });
 
   const handleCheckAudienceSize = async (values) => {
-    console.log("Checking audience size...");
     try {
       const response = await axios.post(
         "http://localhost:5000/api/campaigns/check-audience-size",
@@ -43,13 +42,11 @@ const AudienceForm = () => {
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    console.log("Submitting campaign...");
     try {
       await axios.post(
         "http://localhost:5000/api/campaigns/create-audience",
         values
       );
-      console.log("Campaign created successfully");
       alert("Campaign created successfully");
       navigate("/home/audience");
     } catch (error) {
@@ -142,7 +139,6 @@ const AudienceForm = () => {
                         type="button"
                         className="add-rule-button"
                         onClick={() => {
-                          console.log("Adding rule...");
                           push({ field: "", operator: "", value: "" });
                         }}
                       >
@@ -187,7 +183,6 @@ const AudienceForm = () => {
                     type="button"
                     className="check-audience-button"
                     onClick={() => {
-                      console.log("Checking audience size...");
                       handleCheckAudienceSize(values);
                     }}
                   >

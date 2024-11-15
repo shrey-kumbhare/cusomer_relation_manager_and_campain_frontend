@@ -4,6 +4,7 @@ import CustomerForm from "../components/Ingestion/CustomerForm";
 import OrderForm from "../components/Ingestion/OrderForm";
 import AudienceForm from "../components/Ingestion/AudienceForm";
 import CampaignList from "../components/CampaignListing/CampaignList";
+import ListCustomerslist from "../components/ListCustomerslist";
 import HomePage from "../pages/HomePage";
 import "./Home.css";
 
@@ -23,6 +24,9 @@ const Home = ({ onLogout }) => {
             <Link to="/home/customers">Create Customer</Link>
           </li>
           <li>
+            <Link to="/home/listCustomers">Check Customer</Link>
+          </li>
+          <li>
             <Link to="/home/orders">Create Order</Link>
           </li>
           <li>
@@ -40,6 +44,7 @@ const Home = ({ onLogout }) => {
       <div className="content">
         <Routes>
           <Route path="/customers" element={<CustomerForm />} />
+          <Route path="/listCustomers" element={<ListCustomerslist />} />
           <Route path="/orders" element={<OrderForm />} />
           <Route path="/audience" element={<AudienceForm />} />
           <Route path="/campaigns" element={<CampaignList />} />
