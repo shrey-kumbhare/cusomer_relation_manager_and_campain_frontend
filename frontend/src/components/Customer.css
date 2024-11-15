@@ -18,3 +18,18 @@
 .customers-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+/* Customer.css */
+
+.create-order-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.create-order-button:hover {
+  background-color: #45a049;
+}

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { createOrder } from "../../services/api";
 import "./OrderForm.css";
 
 const OrderForm = () => {
-  const [customerId, setCustomerId] = useState("");
+  const { customerId: routeCustomerId } = useParams(); // Get customerId from the URL
+  const [customerId, setCustomerId] = useState(routeCustomerId || ""); // Set initial value from route
   const [amount, setAmount] = useState("");
   const [errors, setErrors] = useState({});
 
@@ -44,6 +46,10 @@ const OrderForm = () => {
       alert("Error creating order");
     }
   };
+
+  useEffect(() => {
+    setCustomerId(routeCustomerId || ""); // Update customerId if it changes from route
+  }, [routeCustomerId]);
 
   return (
     <div className="container">

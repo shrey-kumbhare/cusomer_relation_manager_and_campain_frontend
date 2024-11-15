@@ -46,6 +46,7 @@ const Home = ({ onLogout }) => {
           <Route path="/customers" element={<CustomerForm />} />
           <Route path="/listCustomers" element={<ListCustomerslist />} />
           <Route path="/orders" element={<OrderForm />} />
+          <Route path="/order/:customerId" element={<OrderForm />} />
           <Route path="/audience" element={<AudienceForm />} />
           <Route path="/campaigns" element={<CampaignList />} />
           <Route path="/" element={<HomePage />} />
