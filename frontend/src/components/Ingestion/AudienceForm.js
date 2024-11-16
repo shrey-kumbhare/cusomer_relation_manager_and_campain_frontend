@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./AudienceForm.css";
 
@@ -31,26 +30,44 @@ const AudienceForm = () => {
 
   const handleCheckAudienceSize = async (values) => {
     try {
-      const response = await axios.post(
+      const response = await fetch(
         "http://localhost:5000/api/campaigns/check-audience-size",
-        values
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
       );
-      setAudienceSize(response.data.audienceSize);
+      const data = await response.json();
+      setAudienceSize(data.audienceSize);
     } catch (error) {
-      console.error("Error checking audience size", error.response.data);
+      console.error("Error checking audience size", error);
     }
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      await axios.post(
+      const response = await fetch(
         "http://localhost:5000/api/campaigns/create-audience",
-        values
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
       );
-      alert("Campaign created successfully");
-      navigate("/home/audience");
+      if (response.ok) {
+        alert("Campaign created successfully");
+        navigate("/home/audience");
+      } else {
+        const errorData = await response.json();
+        console.error("Error creating audience", errorData);
+      }
     } catch (error) {
-      console.error("Error creating audience", error.response.data);
+      console.error("Error creating audience", error);
     } finally {
       setSubmitting(false);
     }
