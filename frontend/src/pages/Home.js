@@ -8,7 +8,7 @@ import ListCustomerslist from "../components/ListCustomerslist";
 import HomePage from "../pages/HomePage";
 import "./Home.css";
 
-const Home = ({ onLogout }) => {
+const Home = ({ profile, onLogout }) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -49,7 +49,7 @@ const Home = ({ onLogout }) => {
           <Route path="/order/:customerId" element={<OrderForm />} />
           <Route path="/audience" element={<AudienceForm />} />
           <Route path="/campaigns" element={<CampaignList />} />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage Profile={profile} />} />
         </Routes>
       </div>
     </div>

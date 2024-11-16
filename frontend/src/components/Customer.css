@@ -16,12 +16,12 @@
 }
 
 .customers-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #3399ff;
 }
 /* Customer.css */
 
 .create-order-button {
-  background-color: #4caf50;
+  background-color: #3399ff;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -31,5 +31,5 @@
 }
 
 .create-order-button:hover {
-  background-color: #45a049;
+  background-color: #3399ff;
 }

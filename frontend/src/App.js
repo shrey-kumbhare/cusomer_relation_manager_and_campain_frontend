@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [Profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const App = () => {
         });
         const data = await response.json();
         setIsAuthenticated(data.isAuthenticated);
+        setProfile(data.name);
         setLoading(false);
       } catch (error) {
         console.error("Error checking auth status:", error);
@@ -63,7 +65,7 @@ const App = () => {
             path="/home/*"
             element={
               isAuthenticated ? (
-                <Home onLogout={handleLogout} />
+                <Home onLogout={handleLogout} profile={Profile} />
               ) : (
                 <Navigate to="/login" />
               )
