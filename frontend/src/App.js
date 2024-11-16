@@ -16,9 +16,12 @@ const App = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/status", {
-          credentials: "include",
-        });
+        const response = await fetch(
+          "https://shreycrmbackend.onrender.com/api/auth/status",
+          {
+            credentials: "include",
+          }
+        );
         const data = await response.json();
         setIsAuthenticated(data.isAuthenticated);
         setProfile(data.name);
@@ -34,10 +37,13 @@ const App = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://shreycrmbackend.onrender.com/api/auth/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
       if (response.ok) {
         console.log("Logout successful");
         setIsAuthenticated(false);

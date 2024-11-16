@@ -8,9 +8,12 @@ const Login = ({ onLogin }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/status", {
-          credentials: "include",
-        });
+        const response = await fetch(
+          "https://shreycrmbackend.onrender.com/api/auth/status",
+          {
+            credentials: "include",
+          }
+        );
         const data = await response.json();
         if (data.isAuthenticated) {
           onLogin();
@@ -25,7 +28,8 @@ const Login = ({ onLogin }) => {
   }, [onLogin, navigate]);
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href =
+      "https://shreycrmbackend.onrender.com/api/auth/google";
   };
 
   return (
