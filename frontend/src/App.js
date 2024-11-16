@@ -13,15 +13,15 @@ const App = () => {
   const [Profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
 
+  // Use environment variable for API URL
+  const API_URL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch(
-          "https://shreycrmbackend.onrender.com/api/auth/status",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${API_URL}/api/auth/status`, {
+          credentials: "include",
+        });
         console.log(response);
         const data = await response.json();
         setIsAuthenticated(data.isAuthenticated);
@@ -34,17 +34,14 @@ const App = () => {
     };
 
     checkAuthStatus();
-  }, []);
+  }, [API_URL]);
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(
-        "https://shreycrmbackend.onrender.com/api/auth/logout",
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${API_URL}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
       if (response.ok) {
         console.log("Logout successful");
         setIsAuthenticated(false);

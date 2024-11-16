@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import "./AudienceForm.css";
 
+// Debounce function to limit API calls
+const debounce = (func, delay) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), delay);
+  };
+};
+
 const AudienceForm = () => {
   const [audienceSize, setAudienceSize] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -28,29 +38,35 @@ const AudienceForm = () => {
       .oneOf(["AND", "OR"], "Logical operator must be either AND or OR"),
   });
 
-  const handleCheckAudienceSize = async (values) => {
-    try {
-      const response = await fetch(
-        "https://shreycrmbackend.onrender.com/api/campaigns/check-audience-size",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        }
-      );
-      const data = await response.json();
-      setAudienceSize(data.audienceSize);
-    } catch (error) {
-      console.error("Error checking audience size", error);
-    }
-  };
+  const handleCheckAudienceSize = useCallback(
+    debounce(async (values) => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/campaigns/check-audience-size`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          }
+        );
+        const data = await response.json();
+        setAudienceSize(data.audienceSize);
+      } catch (error) {
+        console.error("Error checking audience size", error);
+      } finally {
+        setLoading(false);
+      }
+    }, 500), // Debounce delay
+    []
+  );
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const response = await fetch(
-        "https://shreycrmbackend.onrender.com/api/campaigns/create-audience",
+        `${process.env.REACT_APP_API_URL}/campaigns/create-audience`,
         {
           method: "POST",
           headers: {
@@ -132,7 +148,7 @@ const AudienceForm = () => {
                             <div className="rule-value">
                               <Field
                                 name={`rules.${index}.value`}
-                                type={"text"}
+                                type="text"
                                 className="rule-value-input"
                               />
                               <ErrorMessage
@@ -155,9 +171,9 @@ const AudienceForm = () => {
                       <button
                         type="button"
                         className="add-rule-button"
-                        onClick={() => {
-                          push({ field: "", operator: "", value: "" });
-                        }}
+                        onClick={() =>
+                          push({ field: "", operator: "", value: "" })
+                        }
                       >
                         Add Rule
                       </button>
@@ -199,11 +215,10 @@ const AudienceForm = () => {
                   <button
                     type="button"
                     className="check-audience-button"
-                    onClick={() => {
-                      handleCheckAudienceSize(values);
-                    }}
+                    onClick={() => handleCheckAudienceSize(values)}
+                    disabled={loading}
                   >
-                    Check Audience Size
+                    {loading ? "Checking..." : "Check Audience Size"}
                   </button>
                   {audienceSize !== null && (
                     <div className="audience-size">
