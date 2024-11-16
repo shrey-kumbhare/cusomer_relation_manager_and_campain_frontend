@@ -22,6 +22,7 @@ const App = () => {
             credentials: "include",
           }
         );
+        console.log(response);
         const data = await response.json();
         setIsAuthenticated(data.isAuthenticated);
         setProfile(data.name);
