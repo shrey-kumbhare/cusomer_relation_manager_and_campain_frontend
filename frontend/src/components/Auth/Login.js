@@ -17,12 +17,16 @@ const Login = ({ onLogin }) => {
         const data = await response.json();
 
         if (data.isAuthenticated) {
-          onLogin(); // Notify parent component about login success
-          navigate("/home"); // Redirect to home if authenticated
+          localStorage.setItem(
+            "isAuthenticated",
+            JSON.stringify(data.isAuthenticated)
+          );
+          localStorage.setItem("profile", JSON.stringify(data.name));
+          onLogin();
+          navigate("/home");
         }
       } catch (error) {
         console.error("Error checking auth status:", error);
-        // You might want to show a message to the user in case of an error
       }
     };
 
@@ -30,7 +34,6 @@ const Login = ({ onLogin }) => {
   }, [onLogin, navigate]);
 
   const handleGoogleLogin = () => {
-    // Redirect to Google OAuth
     window.location.href = `${API_URL}/api/auth/google`;
   };
 

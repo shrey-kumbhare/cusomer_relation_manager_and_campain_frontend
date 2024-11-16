@@ -13,28 +13,20 @@ const App = () => {
   const [Profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
 
-  // Use environment variable for API URL
   const API_URL = process.env.REACT_APP_API_URL;
 
+  // Retrieve authentication data from localStorage on page load
   useEffect(() => {
-    const checkAuthStatus = async () => {
-      try {
-        const response = await fetch(`${API_URL}/api/auth/status`, {
-          credentials: "include",
-        });
-        console.log(response);
-        const data = await response.json();
-        setIsAuthenticated(data.isAuthenticated);
-        setProfile(data.name);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error checking auth status:", error);
-        setLoading(false);
-      }
-    };
+    const storedIsAuthenticated = localStorage.getItem("isAuthenticated");
+    const storedProfile = localStorage.getItem("profile");
 
-    checkAuthStatus();
-  }, [API_URL]);
+    if (storedIsAuthenticated && storedProfile) {
+      setIsAuthenticated(JSON.parse(storedIsAuthenticated));
+      setProfile(JSON.parse(storedProfile));
+    }
+
+    setLoading(false);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -45,6 +37,9 @@ const App = () => {
       if (response.ok) {
         console.log("Logout successful");
         setIsAuthenticated(false);
+        setProfile({});
+        localStorage.removeItem("isAuthenticated");
+        localStorage.removeItem("profile");
       } else {
         console.error("Logout failed:", await response.text());
       }
