@@ -60,7 +60,10 @@ const App = () => {
             path="/login"
             element={<Login onLogin={() => setIsAuthenticated(true)} />}
           />
-          <Route path="/auth/success" element={<AuthSuccess />} />
+          <Route
+            path="/auth/success"
+            element={<AuthSuccess onSuccess={() => setIsAuthenticated(true)} />}
+          />
           <Route
             path="/home/*"
             element={

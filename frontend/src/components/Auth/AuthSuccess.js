@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const AuthSuccess = ({}) => {
+const AuthSuccess = ({ onSuccess }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,8 +17,8 @@ const AuthSuccess = ({}) => {
       localStorage.setItem("isAuthenticated", JSON.stringify(true));
       localStorage.setItem("profile", JSON.stringify(userInfo));
     }
-    console.log("ggt");
-    // navigate("/home");
+    onSuccess();
+    navigate("/home");
   }, [navigate]);
 
   return <div>Authenticating...</div>;

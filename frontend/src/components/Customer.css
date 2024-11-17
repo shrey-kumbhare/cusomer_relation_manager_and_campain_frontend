@@ -16,7 +16,7 @@
 }
 
 .customers-table tr:nth-child(even) {
-  background-color: #3399ff;
+  background-color: #f4f4f4;
 }
 /* Customer.css */
 
