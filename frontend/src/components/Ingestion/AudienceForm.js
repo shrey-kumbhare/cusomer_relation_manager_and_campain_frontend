@@ -43,7 +43,7 @@ const AudienceForm = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/campaigns/check-audience-size`,
+          `${process.env.API_BASE_URL}/campaigns/check-audience-size`,
           {
             method: "POST",
             headers: {
@@ -59,14 +59,14 @@ const AudienceForm = () => {
       } finally {
         setLoading(false);
       }
-    }, 500), // Debounce delay
+    }, 500),
     []
   );
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/campaigns/create-audience`,
+        `${process.env.API_BASE_URL}/campaigns/create-audience`,
         {
           method: "POST",
           headers: {
