@@ -36,9 +36,10 @@ const getRequest = async (url) => {
 };
 
 export const createCustomer = (customerData) =>
-  postRequest("/customers", customerData);
-export const createOrder = (orderData) => postRequest("/orders", orderData);
+  postRequest(`${API_BASE_URL}customers`, customerData);
+export const createOrder = (orderData) =>
+  postRequest(`${API_BASE_URL}/orders`, orderData);
 export const createAudience = (audienceData) =>
-  postRequest("/campaigns/audience", audienceData);
-export const getCampaigns = () => getRequest("/campaigns/");
-export const getCustomers = () => getRequest("/customers");
+  postRequest(`${API_BASE_URL}/campaigns/audience`, audienceData);
+export const getCampaigns = () => getRequest(`${API_BASE_URL}/campaigns/`);
+export const getCustomers = () => getRequest(`${API_BASE_URL}/customers`);
