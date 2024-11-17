@@ -7,10 +7,11 @@ import {
 } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Home from "./pages/Home";
+import AuthSuccess from "./components/Auth/AuthSuccess";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [Profile, setProfile] = useState({});
+  const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
 
   const API_URL = process.env.REACT_APP_API_URL;
@@ -28,6 +29,7 @@ const App = () => {
     setLoading(false);
   }, []);
 
+  // Function to handle logout
   const handleLogout = async () => {
     try {
       const response = await fetch(`${API_URL}/api/auth/logout`, {
@@ -60,11 +62,12 @@ const App = () => {
             path="/login"
             element={<Login onLogin={() => setIsAuthenticated(true)} />}
           />
+          <Route path="/auth/success" element={<AuthSuccess />} />
           <Route
             path="/home/*"
             element={
               isAuthenticated ? (
-                <Home onLogout={handleLogout} profile={Profile} />
+                <Home onLogout={handleLogout} profile={profile} />
               ) : (
                 <Navigate to="/login" />
               )
