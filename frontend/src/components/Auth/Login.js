@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import styles from "./Login.module.css";
 
-const Login = ({}) => {
+const Login = ({ onLogin }) => {
   const handleGoogleLogin = () => {
     window.location.href = `https://shreycrmbackend.onrender.com/api/auth/google`;
+    onLogin();
   };
 
   return (

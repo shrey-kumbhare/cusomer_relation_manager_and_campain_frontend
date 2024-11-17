@@ -43,7 +43,7 @@ const AudienceForm = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://shreycrmbackend.onrender.com/campaigns/check-audience-size`,
+          `https://shreycrmbackend.onrender.com/api/campaigns/check-audience-size`,
           {
             method: "POST",
             headers: {
@@ -66,7 +66,7 @@ const AudienceForm = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const response = await fetch(
-        `https://shreycrmbackend.onrender.com/campaigns/create-audience`,
+        `https://shreycrmbackend.onrender.com/api/campaigns/create-audience`,
         {
           method: "POST",
           headers: {

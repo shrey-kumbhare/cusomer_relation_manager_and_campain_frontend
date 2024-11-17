@@ -5,6 +5,8 @@ import "./Customer.css";
 
 const CustomersList = () => {
   const [customers, setCustomers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,7 +15,10 @@ const CustomersList = () => {
         const customersData = await getCustomers();
         setCustomers(customersData.data);
       } catch (err) {
+        setError("Failed to fetch customers");
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -23,6 +28,14 @@ const CustomersList = () => {
   const handleCreateOrder = (customerId) => {
     navigate(`/home/order/${customerId}`);
   };
+
+  if (loading) {
+    return <div>Loading customers...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div>
