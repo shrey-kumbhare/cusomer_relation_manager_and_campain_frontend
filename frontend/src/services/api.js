@@ -1,13 +1,16 @@
 // Helper function to handle the POST request with JSON data
 const postRequest = async (url, data) => {
   try {
-    const response = await fetch(`https://shreycrmbackend.onrender.com${url}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `https://shreycrmbackend.onrender.com/api${url}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
     if (!response.ok) {
       throw new Error(`Error: ${response.statusText}`);
     }
@@ -21,7 +24,9 @@ const postRequest = async (url, data) => {
 // Helper function to handle the GET request
 const getRequest = async (url) => {
   try {
-    const response = await fetch(`https://shreycrmbackend.onrender.com${url}`);
+    const response = await fetch(
+      `https://shreycrmbackend.onrender.com/api${url}`
+    );
     if (!response.ok) {
       throw new Error(`Error: ${response.statusText}`);
     }
