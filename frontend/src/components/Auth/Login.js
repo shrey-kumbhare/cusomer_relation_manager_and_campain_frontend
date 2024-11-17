@@ -3,7 +3,7 @@ import styles from "./Login.module.css";
 
 const Login = ({}) => {
   const handleGoogleLogin = () => {
-    window.location.href = `${process.env.API_BASE_URL}/api/auth/google`;
+    window.location.href = `https://shreycrmbackend.onrender.com/api/auth/google`;
   };
 
   return (

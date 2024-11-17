@@ -14,8 +14,6 @@ const App = () => {
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const API_URL = process.env.API_BASE_URL;
-
   useEffect(() => {
     const storedIsAuthenticated = localStorage.getItem("isAuthenticated");
     const storedProfile = localStorage.getItem("profile");
@@ -29,10 +27,13 @@ const App = () => {
   // Function to handle logout
   const handleLogout = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/auth/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
+      const response = await fetch(
+        `https://shreycrmbackend.onrender.com/api/auth/logout`,
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
       if (response.ok) {
         console.log("Logout successful");
         setIsAuthenticated(false);
