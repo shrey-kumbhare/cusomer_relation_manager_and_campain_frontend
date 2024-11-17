@@ -5,7 +5,6 @@ const HomePage = () => {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    // Retrieve the profile data from localStorage
     const storedProfile = localStorage.getItem("profile");
 
     if (storedProfile) {

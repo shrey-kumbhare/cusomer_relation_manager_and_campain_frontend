@@ -4,7 +4,7 @@ import { getCustomers } from "../services/api";
 import "./Customer.css";
 
 const CustomersList = () => {
-  const [customers, setCustomers] = useState([]);
+  const [customers, setCustomers] = useState([]); // Initialize as an empty array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -13,7 +13,12 @@ const CustomersList = () => {
     const fetchCustomers = async () => {
       try {
         const customersData = await getCustomers();
-        setCustomers(customersData.data);
+        console.log(customersData); // Log the response for debugging
+        if (Array.isArray(customersData.data)) {
+          setCustomers(customersData.data); // Set customers only if it's an array
+        } else {
+          setError("No valid customer data available");
+        }
       } catch (err) {
         setError("Failed to fetch customers");
         console.error(err);
@@ -40,37 +45,41 @@ const CustomersList = () => {
   return (
     <div>
       <h2 className="heading">Customers</h2>
-      <table className="customers-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Total Spend</th>
-            <th>Number of Visits</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {customers.map((customer) => (
-            <tr key={customer._id}>
-              <td>{customer._id}</td>
-              <td>{customer.name}</td>
-              <td>{customer.email}</td>
-              <td>{customer.totalSpend}</td>
-              <td>{customer.numVisits}</td>
-              <td>
-                <button
-                  onClick={() => handleCreateOrder(customer._id)}
-                  className="create-order-button"
-                >
-                  Create Order
-                </button>
-              </td>
+      {customers.length === 0 ? (
+        <p>No customers available</p> // If there are no customers, show this message
+      ) : (
+        <table className="customers-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Total Spend</th>
+              <th>Number of Visits</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {customers.map((customer) => (
+              <tr key={customer._id}>
+                <td>{customer._id}</td>
+                <td>{customer.name}</td>
+                <td>{customer.email}</td>
+                <td>{customer.totalSpend}</td>
+                <td>{customer.numVisits}</td>
+                <td>
+                  <button
+                    onClick={() => handleCreateOrder(customer._id)}
+                    className="create-order-button"
+                  >
+                    Create Order
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
