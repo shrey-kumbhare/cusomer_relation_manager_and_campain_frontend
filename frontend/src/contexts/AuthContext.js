@@ -7,21 +7,14 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuthStatus = async () => {
-      try {
-        const response = await fetch("/api/auth/status");
-        if (!response.ok) {
-          throw new Error("Failed to check authentication status");
-        }
-        const data = await response.json();
-        setIsAuthenticated(data.isAuthenticated);
-      } catch (error) {
-        setIsAuthenticated(false);
-      }
-      setLoading(false);
-    };
+    const storedIsAuthenticated = localStorage.getItem("isAuthenticated");
+    const storedProfile = localStorage.getItem("profile");
 
-    checkAuthStatus();
+    if (storedIsAuthenticated && storedProfile) {
+      setIsAuthenticated(JSON.parse(storedIsAuthenticated));
+    }
+
+    setLoading(false);
   }, []);
 
   return (

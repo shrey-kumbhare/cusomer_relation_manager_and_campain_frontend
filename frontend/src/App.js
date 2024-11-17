@@ -16,7 +16,6 @@ const App = () => {
 
   const API_URL = process.env.REACT_APP_API_URL;
 
-  // Retrieve authentication data from localStorage on page load
   useEffect(() => {
     const storedIsAuthenticated = localStorage.getItem("isAuthenticated");
     const storedProfile = localStorage.getItem("profile");

@@ -9,8 +9,6 @@ const AuthSuccess = ({}) => {
     const isAuthenticated = params.get("isAuthenticated");
     const displayName = params.get("displayName");
     const email = params.get("email");
-    console.log(isAuthenticated);
-    console.log(displayName);
     if (isAuthenticated === "true" && displayName && email) {
       const userInfo = {
         displayName,
@@ -20,7 +18,7 @@ const AuthSuccess = ({}) => {
       localStorage.setItem("profile", JSON.stringify(userInfo));
       navigate("/home");
     } else {
-      //   navigate("/login");
+      navigate("/login");
     }
   }, [navigate]);
 
