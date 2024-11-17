@@ -13,9 +13,8 @@ const CustomersList = () => {
     const fetchCustomers = async () => {
       try {
         const customersData = await getCustomers();
-        console.log(customersData); // Log the response for debugging
-        if (Array.isArray(customersData.data)) {
-          setCustomers(customersData.data); // Set customers only if it's an array
+        if (Array.isArray(customersData)) {
+          setCustomers(customersData); // Set customers only if it's an array
         } else {
           setError("No valid customer data available");
         }

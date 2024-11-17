@@ -11,8 +11,8 @@ const CampaignList = () => {
     const fetchCampaigns = async () => {
       try {
         const campaignsData = await getCampaigns();
-        if (campaignsData && campaignsData.data) {
-          setCampaigns(campaignsData.data);
+        if (campaignsData) {
+          setCampaigns(campaignsData);
         } else {
           setError("No campaigns found");
         }

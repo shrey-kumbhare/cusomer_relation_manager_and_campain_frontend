@@ -17,7 +17,8 @@ const AuthSuccess = ({}) => {
       localStorage.setItem("isAuthenticated", JSON.stringify(true));
       localStorage.setItem("profile", JSON.stringify(userInfo));
     }
-    navigate("/home");
+    console.log("ggt");
+    // navigate("/home");
   }, [navigate]);
 
   return <div>Authenticating...</div>;
