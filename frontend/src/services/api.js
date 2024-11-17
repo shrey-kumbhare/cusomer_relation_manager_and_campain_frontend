@@ -33,15 +33,9 @@ const getRequest = async (url) => {
 };
 
 export const createCustomer = (customerData) =>
-  postRequest(`https://shreycrmbackend.onrender.com/customers`, customerData);
-export const createOrder = (orderData) =>
-  postRequest(`https://shreycrmbackend.onrender.com/orders`, orderData);
+  postRequest(`/customers`, customerData);
+export const createOrder = (orderData) => postRequest(`/orders`, orderData);
 export const createAudience = (audienceData) =>
-  postRequest(
-    `https://shreycrmbackend.onrender.com/campaigns/audience`,
-    audienceData
-  );
-export const getCampaigns = () =>
-  getRequest(`https://shreycrmbackend.onrender.com/campaigns/`);
-export const getCustomers = () =>
-  getRequest(`https://shreycrmbackend.onrender.com/customers`);
+  postRequest(`/campaigns/audience`, audienceData);
+export const getCampaigns = () => getRequest(`/campaigns/`);
+export const getCustomers = () => getRequest(`/customers`);
