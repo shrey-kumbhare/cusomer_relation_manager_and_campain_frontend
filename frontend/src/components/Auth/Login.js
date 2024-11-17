@@ -5,6 +5,11 @@ const API_URL = process.env.API_BASE_URL;
 
 const Login = ({}) => {
   const handleGoogleLogin = () => {
+    if (!API_URL) {
+      console.error("API_URL is not defined");
+      window.location.href = `/api/auth/google`;
+      return;
+    }
     window.location.href = `${API_URL}/api/auth/google`;
   };
 
